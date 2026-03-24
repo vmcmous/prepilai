@@ -220,17 +220,20 @@ Once you are ready, make your decision.
 
 <!--END postHTML-->
 <script>
-window.addEventListener('load', function() {
-    setInterval(function() {
-        var procdata = document.mlwebform.procdata.value;
-        if (procdata) {
-            window.parent.postMessage({
-                mlweb_data: procdata
-            }, '*');
+document.forms['mlwebform'].addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    var pdata = document.forms['mlwebform'].elements['procdata'].value;
+
+    window.parent.postMessage({
+        type: 'mouselabComplete',
+        data: {
+            choice: '',
+            reason: '',
+            processData: pdata
         }
-    }, 2000);
+    }, '*');
+
+    return false;
 });
 </script>
-</FORM></body></html>
-
-
